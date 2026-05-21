@@ -1,9 +1,8 @@
 const mongoose = require("mongoose")
 
-const {URI} = require("../../secret.js")
 
 const connectDB = async ()=>{
- await mongoose.connect(URI)
+ await mongoose.connect(process.env.DB_KEY)
 }
 
 
