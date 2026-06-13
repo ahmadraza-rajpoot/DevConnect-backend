@@ -10,6 +10,8 @@ const connectionRouter = require('./routers/connectionRouter.js')
 const userRouter = require('./routers/userRouter.js')
 require('dotenv').config()
 const cors = require('cors')
+const http = require('http')
+
 
 const app = express()
 
@@ -17,6 +19,10 @@ app.use(cors({
     origin:"http://localhost:5173",
     credentials:true,
 }))
+
+
+
+
 app.use(cookieParser())
 app.use(express.json())
 app.use(authRouter)
@@ -24,10 +30,12 @@ app.use(profileRouter)
 app.use(connectionRouter)
 app.use(userRouter)
 
+const server = http.createServer(app)
+
 
 connectDB().then(()=>{
     console.log("DB has been connected")    
-    app.listen(3000, ()=>{
+    server.listen(3000, ()=>{
         console.log('server is running on port: 3000')
     })
 
