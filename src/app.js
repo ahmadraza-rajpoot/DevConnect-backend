@@ -11,6 +11,7 @@ const userRouter = require('./routers/userRouter.js')
 require('dotenv').config()
 const cors = require('cors')
 const http = require('http')
+const initializeSocket = require('./utils/socket.js')
 
 
 const app = express()
@@ -32,7 +33,7 @@ app.use(userRouter)
 
 const server = http.createServer(app)
 
-
+initializeSocket(server)
 connectDB().then(()=>{
     console.log("DB has been connected")    
     server.listen(3000, ()=>{
